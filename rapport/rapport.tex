@@ -1,0 +1,59 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+%Chargement des packages
+\usepackage{graphicx}
+\usepackage{ifthen}
+\usepackage{amsmath}
+\usepackage{multicol}
+\usepackage{multirow}
+\usepackage{amsfonts}
+\usepackage{tabulary}
+\usepackage{listings}
+\usepackage{xspace}
+\usepackage{amssymb}
+\usepackage{eurosym}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[pdfborder={0 0 0}]{hyperref}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+
+\newenvironment{figue}[1]{
+	\par
+	\bigskip
+	\begin{figure}[h]
+	\begin{center}
+	  \includegraphics[width=0.9\textwidth]{#1}
+	\end{center}
+}{
+	\end{figure}
+	\bigskip
+}
+
+\title{Architecture Dumbo}
+\date{30 Juin 2019}
+\author{Victor \bsc{Zimmerman} \and Arthur \bsc{Bruneel} \and Antoine \bsc{Caillet} \and Clément \bsc{Boutin} \and Baptiste \bsc{Saclier}}
+
+\begin{document}
+
+\maketitle
+
+\begin{center}
+\rule{0.5\textwidth}{0.4pt}
+\end{center}
+
+\bigskip
+
+\tableofcontents
+
+\clearpage
+
+\section{Introduction}
+
+\input{realisation/realisation}
+\input{ingenierie/ingenierie}
+
+\section{Conclusion}
+
+\end{document}

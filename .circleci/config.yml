@@ -1,0 +1,22 @@
+version: 2
+jobs:
+  build-docs:
+    docker:
+      - image: raabf/latex-versions:texlive2018
+    steps:
+      - checkout
+      - run: mkdir /Documents
+      - run:
+          name: "Build: Rapportn"
+          command: |
+            cd rapport;
+            pdflatex -interaction=nonstopmode rapport.tex;
+            pdflatex -interaction=nonstopmode rapport.tex;
+            cp drapport.pdf /Documents;
+      - store_artifacts:
+          path: /Documents/rapport.pdf
+workflows:
+  version: 2
+  build-docs:
+    jobs:
+      - build-docs
