@@ -1,0 +1,13 @@
+dn: dc=kore,dc=sh
+objectClass: top
+objectClass: dcObject
+objectClass: organization
+o: Kore Inc.
+dc: kore
+
+dn: cn=admin,dc=kore,dc=sh
+objectClass: simpleSecurityObject
+objectClass: organizationalRole
+cn: admin
+description: LDAP administrator
+userPassword:: e1NTSEF9TFRnU0JKc3lLRDd4eGt2bFhiZXpHa0lOZVNMZWRsNC8=

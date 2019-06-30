@@ -1,0 +1,9 @@
+dn: ou=addressbook,dc=kore,dc=sh
+ou: addressbook
+objectClass: top
+objectClass: organizationalUnit
+
+dn: ou=users,dc=kore,dc=sh
+ou: users
+objectClass: top
+objectClass: organizationalUnit
