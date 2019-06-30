@@ -12,7 +12,7 @@ jobs:
             cd rapport;
             pdflatex -interaction=nonstopmode rapport.tex;
             pdflatex -interaction=nonstopmode rapport.tex;
-            cp drapport.pdf /Documents;
+            cp rapport.pdf /Documents;
       - store_artifacts:
           path: /Documents/rapport.pdf
 workflows:
