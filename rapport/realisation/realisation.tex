@@ -1,6 +1,17 @@
 \section{Réalisation technique}
 
+Dans le cadre du projet Dumbo, nous devions réfléchire à une infrastructure permettant de déployer un grand nombre de services pour de nombreux clients.
+Cela pose de nombreux problèmes comme la gestion des différents espaces d'entreprise, la gestion de la charge au sein d'un cluster de machines.
+
 \subsection{Infrastructure orientée container}
+
+Pour déployer nos services nous nous sommes basé sur la téchnologie Docker au sein d'un cluster de machines.
+Docker permet le déploiement de services dans des containers.
+Un container est un espace isolé du système dans lequel le service est éxécuté.
+On connecte se container à un port et au système de fichier partagé du cluster pour que l'on puisse communiquer vers le service.
+Cette solution permet d'isoler complementement les applications entre elles et ainsi d'éviter tout conflit de version mais aussi d'éviter une communication non voulue entre plusieurs apllications.
+Les containers sont éxécutés sur la base d'images décrivant le contenu de celui-ci.
+Ces images contiennent les fichiers de base du container et la configuration de l'application.
 
 \subsection{Orchestration multi-nodes}
 
@@ -8,9 +19,26 @@
 
 \subsection{Pad}
 
+Un Pad est un fichier texte tres simple permettant l'utilisation d'une mise en forme basique tel que la mis en gra, la mise en italique, certains titres, etc.
+Un Pad peut aussi être partagé pour une édition en collaboration, ainsi plusiuers perosnnes de l'entreprise peuvent le lire et l'éditer en simultané.
+Dans le cadre d'une entrperise, cela permet de partager rapidement des informations sans envoyer d'email ou de fichier Word.
+Cette techologie est tres utile dans le cadre d'une rédaction de document en équipe, cela permet aux divers memebres de l'équipe de débattre et de modifier le texte sans se soucier de la mise en forme mais de se concentrer sur le fond.
+
+\begin{figue}{0.7}{realisation/etherpad.pdf}
+	\caption{Schéma de l'infrastructure Pad}
+\end{figue}
+
+Pour la mise en place de ce service sur \texttt{pad.kore.sh}, nous avons choisi la technologie \emph{Etherpad} qui est la plus avancée actuellement et qui propose de nombreuses fonctionnalités.
+Etherpad stock les pads des utilisateurs dans une base de données NoSQL MongoDB.
+Il nous a donc fallu créer deux services "MongoDB" et "Etherpad" et relier ce dernier au reverse proxy de l'infrastructure.
+Nous avons crée le Network "Pad" qui permet de lier les deux services entre eux sans interactions du reste de l'infrastructure et nous avons aussi connecté le service "Etherpad" au Network "Web" pour qu'il puisse être servis par le reverse proxy.
+Enfin, la base de données MongoDB dispose d'une volume permettant de stocker ses données de manière persistante et distribuées dans le cluster même si le service MongoDB vient à redémarrer.
+
 \subsection{Messagerie}
 
-\subsection{Gestion des fchiers}
+\subsection{Gestion des fichiers}
+
+La gestion des fichiers permet le stockage et le partage de fichiers dans un espace personnel pour chaque utilisateur 
 
 \subsection{Traitement de texte}
 
@@ -22,8 +50,28 @@
 
 \subsection{Forum}
 
+Un forum est une application Web permettant de créer des sujets pour discuter entre les membres de l'entreprise.
+Elle est très utile notemment pour partager diverses astuces et encourager le partage d'informations en tout genre en entreprise.
+
+Nous avons choisi d'utiliser Discourse, une application Web moderne et ergonomique développé en Ruby et utilise PostgreSQL, une base de données relationnelle, mais aussi Redis, une base de données de cache NoSQL.
+
 \subsection{Chat}
 
+Le chat d'entreprise permet de communiquer éfficacement entre membres d'une équipe, d'un service et même d'une entreprise.
+L'application Rocket.chat permet de disposer de canaux de communication entre tout les membres d'une équipe permettant une communication fluide et bien plus rapide que l'adresse Email.
+
+Rocket.chat est une application Web disposant d'une interface Web et d'un stockage des données dans une base de données MongoDB.
+Nous avons donc mis en place une base de données MongoDB et un volume permettant de stocker les données sur le long terme.
+Cette base de données est alors liée au serveur Rocket.chat qui l'utilise pour l'ensemble de son stockage de données.
+
+Le serveur est alors lié au réseau publique au travers du reverse Proxy Traefik sur le nom de domaine \texttt{chat.kore.sh}
+
 \subsection{Base de données}
+
+La base de données de l'entreprise permet un stockage de données arbitraires et leur recherche pour une utilisation ulterieur.
+Pour cette utilisation, nous avons choisi le logiciel ElasticSearch permettant un stockage de données sans schéma défini.
+Cela permet de stocker des données spécifiques mais aussi de les retrouver.
+En effet, ElasticSearch dispose d'un moteur de recherche très performant permettant de retrouver et classer les documetns trouvés selon un score.
+Enfin, ElasticSearch dispose d'un système de replication permettant une utilisation en cluster comme dans notre cas.
 
 \subsection{Exposition des services}

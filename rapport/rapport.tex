@@ -19,12 +19,12 @@
 \usepackage[pdfborder={0 0 0}]{hyperref}
 \usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
 
-\newenvironment{figue}[1]{
+\newenvironment{figue}[2]{
 	\par
 	\bigskip
 	\begin{figure}[h]
 	\begin{center}
-	  \includegraphics[width=0.9\textwidth]{#1}
+	  \includegraphics[width=#1\textwidth]{#2}
 	\end{center}
 }{
 	\end{figure}

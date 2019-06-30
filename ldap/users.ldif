@@ -1,0 +1,39 @@
+dn: cn=baptiste,ou=users,dc=kore,dc=sh
+uid: baptiste
+userPassword: {SSHA}DihCMEo9fdoF1u8oOr8DL4pApPMf7URi
+objectClass: top
+objectClass: account
+objectClass: simpleSecurityObject 
+mailacceptinggeneralid: baptiste
+
+dn: cn=victor,ou=users,dc=kore,dc=sh
+uid: victor
+userPassword: {SSHA}Be6jLi/LrxaKLyTJ6QPHRxUBrWzlnXQ1
+objectClass: top
+objectClass: account
+objectClass: simpleSecurityObject 
+mailacceptinggeneralid: victor
+
+dn: cn=arthur,ou=users,dc=kore,dc=sh
+uid: arthur
+userPassword: {SSHA}tcfV8Ri7hX1Lq/pAeokedmxHk1zmuYBO
+objectClass: top
+objectClass: account
+objectClass: simpleSecurityObject 
+mailacceptinggeneralid: arthur
+
+dn: cn=antoine,ou=users,dc=kore,dc=sh
+uid: antoine
+userPassword: {SSHA}H9khbtYxs4+BhYi5Bm06I1EeFl7mLe6G
+objectClass: top
+objectClass: account
+objectClass: simpleSecurityObject 
+mailacceptinggeneralid: antoine
+
+dn: cn=clement,ou=users,dc=kore,dc=sh
+uid: clement
+userPassword: {SSHA}mVVA5JmbdhuFSPYU2XzxbdopNEyAVIb/
+objectClass: top
+objectClass: account
+objectClass: simpleSecurityObject 
+mailacceptinggeneralid: clement

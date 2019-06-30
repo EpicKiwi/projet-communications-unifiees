@@ -7,3 +7,8 @@ dn: ou=users,dc=kore,dc=sh
 ou: users
 objectClass: top
 objectClass: organizationalUnit
+
+dn: ou=services,dc=kore,dc=sh
+ou: services
+objectClass: top
+objectClass: organizationalUnit
