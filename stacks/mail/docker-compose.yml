@@ -71,6 +71,6 @@ networks:
         kore-ldap:
                 external:
                         name: kore-ldap
-        kore-ldap:
+        kore-web:
                 external:
                         name: kore-web
