@@ -1,4 +1,5 @@
 dn: cn=baptiste,ou=users,dc=kore,dc=sh
+changetype: add
 objectClass: top
 objectClass: simpleSecurityObject
 objectClass: person
@@ -15,6 +16,7 @@ uniqueIdentifier: baptiste
 userPassword: {SSHA}DihCMEo9fdoF1u8oOr8DL4pApPMf7URi
 
 dn: cn=clement,ou=users,dc=kore,dc=sh
+changetype: add
 objectClass: top
 objectClass: simpleSecurityObject
 objectClass: person
@@ -31,6 +33,7 @@ uniqueIdentifier: clement
 userPassword: {SSHA}sMMITf+O6Eudo5CLbq0aIhgoDoHsvjj1
 
 dn: cn=antoine,ou=users,dc=kore,dc=sh
+changetype: add
 objectClass: top
 objectClass: simpleSecurityObject
 objectClass: person
@@ -47,6 +50,7 @@ uniqueIdentifier: antoine
 userPassword: {SSHA}c5y3MP4jWsZCqg91ldFHJq+Rjp2SMIRm
 
 dn: cn=arthur,ou=users,dc=kore,dc=sh
+changetype: add
 objectClass: top
 objectClass: simpleSecurityObject
 objectClass: person
@@ -63,6 +67,7 @@ uniqueIdentifier: arthur
 userPassword: {SSHA}DxeAuHEFUPT1OMfiA7wbPwXfVfWwSqYR
 
 dn: cn=victor,ou=users,dc=kore,dc=sh
+changetype: add
 objectClass: top
 objectClass: simpleSecurityObject
 objectClass: person

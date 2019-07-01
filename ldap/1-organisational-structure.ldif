@@ -1,14 +1,17 @@
 dn: ou=addressbook,dc=kore,dc=sh
+changetype: add
 ou: addressbook
 objectClass: top
 objectClass: organizationalUnit
 
 dn: ou=users,dc=kore,dc=sh
+changetype: add
 ou: users
 objectClass: top
 objectClass: organizationalUnit
 
 dn: ou=services,dc=kore,dc=sh
+changetype: add
 ou: services
 objectClass: top
 objectClass: organizationalUnit

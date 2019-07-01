@@ -1,4 +1,5 @@
 dn: uid=mailserver,ou=services,dc=kore,dc=sh
+changetype: add
 uid: mailserver
 userPassword: {SSHA}/Jjeefa/oe9ApsjgiEz+tNMrx9Urndol
 objectClass: top
@@ -6,6 +7,7 @@ objectClass: account
 objectClass: simpleSecurityObject
 
 dn: uid=fileserver,ou=services,dc=kore,dc=sh
+changetype: add
 uid: fileserver
 userPassword: {SSHA}/Jjeefa/oe9ApsjgiEz+tNMrx9Urndol
 objectClass: top
