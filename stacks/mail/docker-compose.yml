@@ -1,0 +1,48 @@
+version: "3"
+  mail:
+    image: tvial/docker-mailserver:latest
+    hostname: mail
+    domainname: kore.sh
+    ports:à
+      - "25:25"
+      - "143:143"
+      - "587:587"
+      - "993:993"
+    volumes:
+      - /storage/kore/mail-storage:/var/mail
+      - /storage/kore/mail-state:/var/mail-state
+      - /storage/kore/mail-config:/tmp/docker-mailserver/
+    networks:
+            - kore-ldap
+            - kore-mail
+    environment:
+      - ENABLE_SPAMASSASSIN=1
+      - ENABLE_CLAMAV=1
+      - ENABLE_FAIL2BAN=0
+      - ENABLE_POSTGREY=1
+      - ONE_DIR=1
+      - DMS_DEBUG=0
+      - ENABLE_LDAP=1
+      - LDAP_SERVER_HOST=kore-ldap-openldap
+      - LDAP_SEARCH_BASE=ou=users,dc=kore,dc=sh
+      - LDAP_BIND_DN=uid=fileserver,ou=services,dc=kore,dc=sh
+      - LDAP_BIND_PW=dcfvgbhn
+      - LDAP_QUERY_FILTER_USER=(&(mail=%s)(mailenable=TRUE))
+      - LDAP_QUERY_FILTER_GROUP=(&(mailGroupMember=%s)(mailenable=TRUE))
+      - LDAP_QUERY_FILTER_ALIAS=(|(&(mailAlias=%s)(objectClass=PostfixBookMailForward))(&(mailAlias=%s)(objectClass=PostfixBookMailAccount)(mailEnabled=TRUE)))
+      - LDAP_QUERY_FILTER_DOMAIN=(|(&(mail=*@%s)(objectClass=PostfixBookMailAccount)(mailEnabled=TRUE))(&(mailGroupMember=*@%s)(objectClass=PostfixBookMailAccount)(mailEnabled=TRUE))(&(mailalias=*@%s)(objectClass=PostfixBookMailForward)))
+      - DOVECOT_PASS_FILTER=(&(objectClass=mailAccount)(uniqueIdentifier=%n))
+      - DOVECOT_USER_FILTER=(&(objectClass=mailAccount)(uniqueIdentifier=%n))
+      - ENABLE_SASLAUTHD=0
+      - POSTMASTER_ADDRESS=postmaster@kore.sh
+      - POSTFIX_MESSAGE_SIZE_LIMIT=100000000
+    cap_add:
+      - NET_ADMIN
+      - SYS_PTRACE
+networks:
+        kore-mail:
+                external:
+                        name: kore-mail
+        kore-ldap:
+                external:
+                        name: kore-ldap
