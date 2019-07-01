@@ -54,7 +54,7 @@ services:
         - traefik.docker.network=kore-web
         - traefik.enable=true
         - traefik.frontend.rule=Host:mail.kore.sh
-        - traefik.port=20000
+        - traefik.port=80
   sogodb:
     image: postgres
     environment:
