@@ -40,10 +40,37 @@ services:
     cap_add:
       - NET_ADMIN
       - SYS_PTRACE
+  sogo:
+    image: jenserat/sogo
+    networks:
+            - kore-ldap
+            - kore-mail
+            - kore-web
+            - sogo
+    volumes:
+      - /storage/kore/sogo-data/:/srv
+    deploy:
+      labels:
+        - traefik.docker.network=kore-web
+        - traefik.enable=true
+        - traefik.frontend.rule=Host:mail.kore.sh
+        - traefik.port=80
+  sogodb:
+    image: postgres
+    environment:
+      - POSTGRES_PASSWORD=sogo
+      - POSTGRES_USER=sogo
+      - POSTGRES_DB=sogo
+    networks:
+            - sogo
 networks:
+        sogo:
         kore-mail:
                 external:
                         name: kore-mail
         kore-ldap:
                 external:
                         name: kore-ldap
+        kore-ldap:
+                external:
+                        name: kore-web
