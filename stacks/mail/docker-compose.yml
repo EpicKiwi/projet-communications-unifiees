@@ -1,4 +1,5 @@
 version: "3"
+services:
   mail:
     image: tvial/docker-mailserver:latest
     hostname: mail
