@@ -26,7 +26,7 @@ services:
       - ENABLE_LDAP=1
       - LDAP_SERVER_HOST=kore-ldap-openldap
       - LDAP_SEARCH_BASE=ou=users,dc=kore,dc=sh
-      - LDAP_BIND_DN=uid=fileserver,ou=services,dc=kore,dc=sh
+      - LDAP_BIND_DN=cn=admin,dc=kore,dc=sh
       - LDAP_BIND_PW=dcfvgbhn
       - LDAP_QUERY_FILTER_USER=(&(mail=%s)(mailenable=TRUE))
       - LDAP_QUERY_FILTER_GROUP=(&(mailGroupMember=%s)(mailenable=TRUE))
