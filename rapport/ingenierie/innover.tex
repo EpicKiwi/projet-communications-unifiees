@@ -1,43 +1,25 @@
 \subsection{Anticipation}
 
-Problèmes~:
+Durant notre phase d'ingénierie, nous avons pu déduir les principaux problèmes suivants :
 
 \begin{itemize}
-\item
-  Notre data center nous a fourni un catalogue d'image qui ne
-  correspondait pas à nos besoins car l'image Debian par exemple était
-  trop ancienne pour l'utilisation de Rancher.
-\item
-  Nous avons rencontré beaucoup de soucis de version d'application en
-  fonction d'une autre donc empêchant une compatibilité entre elles.
-\item
-  Notre data center nous bloque certains ports donc nous ne pouvons
-  utiliser les autorités de certifications pour différentes
-  applications, la VoIP ainsi que Rancher (car Rancher attribuait des
-  ports en extérieur à nos applications qui ne pouvaient être utilisés).
+\item Evolution trop rapide du système d’information 
+\item Des projets d’évolution du système non pas abouti
+\item Trop de changement ont été effectués empêchant l’harmonisation des outils et pratiques
+\item Insatisfaction client croissante résultant en une perte financière 
+\item Organisation non adaptée à l’évolution et le demande des besoins utilisateurs
+\item Objectifs d'efficacité, fiabilité, collaboration, résilience et de « time to market » non atteints.
 \end{itemize}
 
-Opportunités~:
+Nous pouvons alors formuler des opportunitées que Dumbo peux saisir pour améliorer son infrastructure :
 
 \begin{itemize}
-\item
-  Comme nous avons eu le choix d'OS pour nos machines. Nous avons décidé
-  d'établir notre système sous linux étant donnée la connaissance de
-  chacun des membres de l'équipe sur cette OS
-\item
-  Avec une application on peut faire plusieurs services
-\item
-  Avec le cluster on peut travailler sur plusieurs machines comme si on
-  était que sur une machine
-\item
-  Un Reverse proxy qui permet à un utilisateur provenant d'Internet
-  d'accéder à des serveurs internes
-\item
-  Un Load balancing qui nous permet de distribuer la charge de travail
-  au sein de nos différentes machines
-\item
-  DockerSwarm, un outil extrêmement performant qui nous permet de gérer
-  un cluster de Container
+\item Meilleur expérience utilisateur
+\item Maintenance simplifiée et plus rapide
+\item Montée en charge simplifiée et automatique
+\item Datacenters plus écologiques et moins consommateurs d'électricité
+\item Administration mutualisée et simplifiée
+\item Authentification unifiée des utilisateurs
 \end{itemize}
 
 \subsection{Créativité}
@@ -83,9 +65,8 @@ ceux du client.
 
 \subsection{Imagination}
 
-Nous avons remarqué qu'il était possible de prendre des applications
-proposant plusieurs services. C'est pour cela que nous avons établi un
-arbre de dépendance des besoins.
-
-Nous avons aussi pensé à une authentification des utilisateurs de notre
-solution par LDAP.
+Nous avons imaginé une solution innovante et utilisant de nouvelles technologies.
+Nous avons tenté de pousser ses technologies tel que Docker, pour en obtenir une architecture innovante et sécurisée.
+Durant notre phase de conception nous avons cherché à créer une solution inédite aux problèmes de Dumbo.
+Nous avons séparés l'ensemble de nos services en de multiples réseaux permettant de regrouper les services en themes.
+Nous avons aussi utilisé Traefik et son système de reverse-proxy dynamique permettant de facilement changer les services disponibles et ainsi d'expérimenter sur de nouveaux services pour toujours plus satisfaire les clients de Dumbo.
