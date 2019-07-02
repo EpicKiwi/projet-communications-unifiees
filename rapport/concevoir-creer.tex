@@ -1,0 +1,68 @@
+
+\section{Concevoir, créer}
+
+\subsection{Besoins}
+
+% Le groupe doit montrer qu’il a compris les besoins, une reformulation de ceux-ci peut être envisagé. Chaque besoin sera traduit en objectif.
+L'association Dumbo est en plein remaniement de son architecture suite à une croissance fulgurante et il nous reviens de mettre en place une architecture complètement nouvelle, en utilisant docker.
+Il est en effet nécessaire de mettre en place des solutions qui permettront l'évolution et la gestion du nombre de clients qui ne cesse de croître sans que celà n'impacte les utilisateurs existants.
+Un autre besoin est de concentrer les applications mises à dispositions des clients afin de faciliter leur accès et améliorer la productivité au sein des entreprises clientes.
+En effet des nos jours toutes les applications en Cloud se doivent de communiquer entre elles et leur interopérabilité est absolument nécessaire.
+
+\subsection{Enjeux et risques}
+
+% Le groupe doit identifier les enjeux et les risques que peut susciter la mise en œuvre d'une infrastructure devops
+Un tel remaniement implique de re-déployer une solution complète de A à Z, jusquà la répartition de l'utilisation du matériel.
+La nouvelle solution doit donc être testée de façon extensive avant d'être mise en production à la place de la solution existante car le montant de charge à supporter ne sera pas des moindres.
+Au-delà de ceci, l'utilisation de technologies de containerisation telles que Docker et d'orchestrateur tels que Docker Swarm nous permet de bien mieux gérer l'évolution de la demande et les différents pics d'utilisation de façon automatique.
+
+\subsection{Expérience utilisateur}
+
+% Le groupe doit montrer qu’il a pris en compte l’expérience utilisateur
+Au-delà de la prouesse technique, notre but était également de fournir une expérience utilisateur plaisante et simplifiée.
+
+Nous avons ainsi intégré des applications en chaînes autant que possible.
+
+Par exemple, notre service Nextcloud est relié à un srevice LDAP pour l'authentification unifiée mais également à OnlyOffice pour l'édition de tableurs et documents textes à l'intérieur même de l'interface Nextcloud.
+
+Dans un souci de clarté, nous avons également msi en place un système de DNS Inversé avec Traefik, ce qui en pratique permet aux utilisateurs d'accéder à l'application voulue en fonction du nom de sous-domaine.
+
+Par exemple, se rendre sur \href{http://chat.kore.sh}{chat.kore.sh} nous donne accès au service Rocket.Chat, et ainsi pour chaque service.
+
+\subsection{Méthodologie/Travail collaboratif}
+
+%Le groupe doit avoir mis en place une méthode et au moins un outil de travail collaboratif.
+Afin de s'organiser pour le travail en équipe, nous avons utilisé plusieurs outils de communication et de gestion de projets.
+
+Discord:
+
+Discord est un client de chat type Slack que toute l'équipe utilisait et maitrisait déjà et nous avons donc crée des chaînes de discussions spécifiques au projet pour s'échanger des messages ou des ressources ou encore discuter de vive voix grâce aux chaînes vocales de Discord.
+
+Trello:
+
+Dans le but d'organiser les différentes tâches du projet, les dates limites de rendu, etc. nous avons utilisé Trello en détaillant certains objectifs et en utilisant un code couleur pour chaque tâche afin d'avoir un suivi plus visuel de ce qui est fait et reste à faire.
+
+Git:
+
+Afin de partager nos avancées tant au niveau de la configuration qu'au niveau de la rédaction des différents rapports, nous avons crée un dépôt GitHub où tout le monde pouvait ainsi pousser ses différents ajouts et  modifications. Nous avons également utilisé CircleCI afin d'automatiser la compilation de nos rapports rédigés en \LaTeX .
+
+SCRUM:
+
+
+
+\subsection{Schéma}
+
+%Le groupe doit schématiser le fonctionnement et/ou l’architecture du système. Le choix de la forme est libre.
+
+\subsection{Solution}
+
+%Le groupe doit montrer que sa solution est optimale. Il peut par exemple présenter un tableau comparatif entre plusieurs solutions. 
+
+\subsection{Concept}
+
+%En une phrase, le groupe doit définir la fonction et/ou le concept qui représente le mieux sa solution
+
+\subsection{Ecosystème}
+
+%Le groupe doit décrire l’environnement/écosystème relatif à la VoIP
+
