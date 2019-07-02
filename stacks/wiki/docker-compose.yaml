@@ -1,0 +1,21 @@
+version: "3"
+services:
+  wiki:
+    image: "bringnow/gitit"
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.docker.network=kore-web"
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:wiki.kore.sh"
+        - "traefik.port=5001"
+    volumes:
+      - "/storage/kore/wiki-data:/data"
+    environment:
+      - "TZ=Europe/Paris"
+      - "GIT_USER_NAME=admin"
+      - "GIT_USER_EMAIL=baptiste@kore.sh"
+networks:
+  kore-web:
+    external:
+      name: kore-web

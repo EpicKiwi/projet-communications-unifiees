@@ -1,0 +1,44 @@
+version: '3'
+services:
+  rocketchat:
+    image: rocket.chat
+    volumes:
+      - /storage/kore/chat-data/uploads:/app/uploads
+    environment:
+      - ROOT_URL=http://chat.kore.sh
+      - MONGO_URL=mongodb://mongo:27017/rocketchat
+      - MONGO_OPLOG_URL=mongodb://mongo:27017/local
+    depends_on:
+      - mongo 
+    networks:
+      - kore-chat
+      - kore-web
+      - kore-ldap
+    deploy:
+      replicas: 1
+      labels:
+        - "traefik.docker.network=kore-web"
+        - "traefik.enable=true"
+        - "traefik.frontend.rule=Host:chat.kore.sh"
+        - "traefik.port=3000"
+  mongo:
+    image: mongo
+    deploy:
+      replicas: 1
+    volumes:
+     - /storage/kore/chat-data/db:/data/db
+     - /storage/kore/chat-data/dump:/dump
+    command: --smallfiles --oplogSize 128 --replSet rs0 --storageEngine=mmapv1
+    environment:
+     - MONGO_INITDB_DATABASE=rocketchat   
+    networks:
+      - kore-chat
+
+networks:
+    kore-chat:
+    kore-web:
+      external:
+        name: kore-web
+    kore-ldap:
+      external:
+        name: kore-ldap
