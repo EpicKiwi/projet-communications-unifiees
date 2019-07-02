@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+
+        db:
+                image: mariadb
+                networks:
+                        - kore-nextcloud
+                volumes:
+                        - /storage/kore/nextcloud-database:/var/lib/mysql
+                environment:
+                        - MYSQL_ROOT_PASSWORD=dcfvgbhn
+                        - MYSQL_DATABASE=nextcloud
+
+        nextcloud:
+                image: nextcloud:latest
+                networks:
+                        - kore-nextcloud
+                        - kore-web
+                        - kore-ldap
+                depends_on:
+                        - db
+                volumes:
+                        - /storage/kore/nextcloud-data:/var/www/html
+                deploy:
+                        labels:
+                                - traefik.docker.network=kore-web
+                                - traefik.enable=true
+                                - traefik.frontend.rule=Host:files.kore.sh
+                                - traefik.port=80
+                environment:
+                        - MYSQL_DATABASE=nextcloud
+                        - MYSQL_PASSWORD=dcfvgbhn
+                        - MYSQL_HOST=db
+
+        onlyoffice:
+                image: onlyoffice/documentserver
+                networks:
+                        - kore-nextcloud
+                        - kore-web
+                depends_on: 
+                        - nextcloud
+                deploy:
+                        labels:
+                                - traefik.docker.network=kore-web
+                                - traefik.enable=true
+                                - traefik.frontend.rule=Host:office.kore.sh
+                                - traefik.port=80
+
+networks:
+        kore-nextcloud:
+        kore-web:
+                external:
+                        name: kore-web
+        kore-ldap:
+                external:
+                        name: kore-ldap
+
