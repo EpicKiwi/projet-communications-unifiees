@@ -1,0 +1,91 @@
+\subsection{Anticipation}
+
+Problèmes~:
+
+\begin{itemize}
+\item
+  Notre data center nous a fourni un catalogue d'image qui ne
+  correspondait pas à nos besoins car l'image Debian par exemple était
+  trop ancienne pour l'utilisation de Rancher.
+\item
+  Nous avons rencontré beaucoup de soucis de version d'application en
+  fonction d'une autre donc empêchant une compatibilité entre elles.
+\item
+  Notre data center nous bloque certains ports donc nous ne pouvons
+  utiliser les autorités de certifications pour différentes
+  applications, la VoIP ainsi que Rancher (car Rancher attribuait des
+  ports en extérieur à nos applications qui ne pouvaient être utilisés).
+\end{itemize}
+
+Opportunités~:
+
+\begin{itemize}
+\item
+  Comme nous avons eu le choix d'OS pour nos machines. Nous avons décidé
+  d'établir notre système sous linux étant donnée la connaissance de
+  chacun des membres de l'équipe sur cette OS
+\item
+  Avec une application on peut faire plusieurs services
+\item
+  Avec le cluster on peut travailler sur plusieurs machines comme si on
+  était que sur une machine
+\item
+  Un Reverse proxy qui permet à un utilisateur provenant d'Internet
+  d'accéder à des serveurs internes
+\item
+  Un Load balancing qui nous permet de distribuer la charge de travail
+  au sein de nos différentes machines
+\item
+  DockerSwarm, un outil extrêmement performant qui nous permet de gérer
+  un cluster de Container
+\end{itemize}
+
+\subsection{Créativité}
+
+\begin{itemize}
+\item Nous avons pris d'autres solutions de service que celles proposés de par nos connaissances ou en se renseignant de ce qui se faisait actuellement en entreprises.
+\item Nous avons utilisé un reverse proxy avec Traefik nous permettant ainsi de maitriser le port de l'host sur lequel écoutent le conteneur et avoir des informations en temps réel sur ce conteneur.
+\item Pour permettre aussi une bonne utilisation de notre solution d'un point de vue utilisateurs nous avons mis en place différents nom de domaine différents.
+\end{itemize}
+
+\subsection{Clés du succès}
+
+\begin{itemize}
+\item Une méthode de gestion de projet agile afin de se fixer un premier objectif et de s'adapter en fonction de la situation.
+\item Une bonne organisation au sein du projet comme une nomenclature précise,une répartition équitable du travail fournit.
+\item Une bonne communication au sein du groupe de projet pour voir où en ai le projet et respecter l'architecture du système.
+\item Une architecture Open Source qui permet donc une mise a disposition et une modification possible accessible à tous.
+\end{itemize}
+
+\clearpage
+
+\subsection{Innovation}
+
+Notre solution est innovante car elle utilise la conteneurisation Docker qui
+est une solution innovant en elle-même. Docker permet aujourd'hui de
+déployer n'importe quelle application dans n'importe quel environnement.
+Elle permet aux applications d'être indépendantes des infrastructures,
+et aux développeurs de se libérer des contraintes IT.
+
+Comme en témoigne ce graphique l'innovation des composants Dockers ne
+cesse de croitre.
+
+\begin{figue}{1}{ingenierie/pulls-docker.png}
+\caption{Évolution des composants téléchargés depuis \url{hub.docker.com}}
+\end{figue}
+
+Il faut aussi savoir que les containers Docker, compte tenu de
+leur légèreté, sont portables de cloud en cloud.
+
+Nous avons aussi utilisé que des solution Open Source ce qui nous a
+permis de pouvoir moduler nos services en fonction de nos besoins donc
+ceux du client.
+
+\subsection{Imagination}
+
+Nous avons remarqué qu'il était possible de prendre des applications
+proposant plusieurs services. C'est pour cela que nous avons établi un
+arbre de dépendance des besoins.
+
+Nous avons aussi pensé à une authentification des utilisateurs de notre
+solution par LDAP.
