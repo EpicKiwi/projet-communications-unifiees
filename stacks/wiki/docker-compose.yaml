@@ -11,6 +11,8 @@ services:
         - "traefik.port=5001"
     volumes:
       - "/storage/kore/wiki-data:/data"
+    networks:
+      - kore-web
     environment:
       - "TZ=Europe/Paris"
       - "GIT_USER_NAME=admin"
