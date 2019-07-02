@@ -1,77 +1,104 @@
 \section{Réalisation technique}
 
-Dans le cadre du projet Dumbo, nous devions réfléchire à une infrastructure permettant de déployer un grand nombre de services pour de nombreux clients.
-Cela pose de nombreux problèmes comme la gestion des différents espaces d'entreprise, la gestion de la charge au sein d'un cluster de machines.
+Dans le cadre du projet Dumbo, nous devions réfléchir à une infrastructure permettant de déployer un grand nombre de services pour de nombreux clients.
+Cela pose de nombreux problèmes comme la gestion des différents espaces d'entreprise, la gestion de la charge au sein d'un cluster de machines et de multiple clients.
 
 \subsection{Infrastructure orientée container}
 
-Pour déployer nos services nous nous sommes basé sur la téchnologie Docker au sein d'un cluster de machines.
-Docker permet le déploiement de services dans des containers.
-Un container est un espace isolé du système dans lequel le service est éxécuté.
-On connecte se container à un port et au système de fichier partagé du cluster pour que l'on puisse communiquer vers le service.
-Cette solution permet d'isoler complementement les applications entre elles et ainsi d'éviter tout conflit de version mais aussi d'éviter une communication non voulue entre plusieurs apllications.
-Les containers sont éxécutés sur la base d'images décrivant le contenu de celui-ci.
-Ces images contiennent les fichiers de base du container et la configuration de l'application.
+Nous avons déployés nos services au sein de container Docker.
+Docker est une téchnologie permettant d'enfermer les applications déployés dans un système de fichiers isolé du reste du système.
+Cela permet aux différentes applications de s'éxécuter dans un environnement sécurisé indépendemment des autres applications qui pourrait influencer le reste de l'installation.
+Cela permet aussi de séparer les différents services et de les redémarrer facilement en cas d'érreur.
+En effet, lors du crash d'un container, il suffit de le redémarrer ce qui à pour effet de réinitialiser son contenu et ainsi de reprendre sur une base seine.
+La persistance des données s'éfféctue par le montage de dossiers de stockage depuis la machine hôte.
+Ainsi, les données utilisateurs sont constante et les services peuvent redémarrer à tout momment.
 
 \subsection{Orchestration multi-nodes}
 
-\subsection{Annuaire}
-
-\subsection{Pad}
-
-Un Pad est un fichier texte tres simple permettant l'utilisation d'une mise en forme basique tel que la mis en gra, la mise en italique, certains titres, etc.
-Un Pad peut aussi être partagé pour une édition en collaboration, ainsi plusiuers perosnnes de l'entreprise peuvent le lire et l'éditer en simultané.
-Dans le cadre d'une entrperise, cela permet de partager rapidement des informations sans envoyer d'email ou de fichier Word.
-Cette techologie est tres utile dans le cadre d'une rédaction de document en équipe, cela permet aux divers memebres de l'équipe de débattre et de modifier le texte sans se soucier de la mise en forme mais de se concentrer sur le fond.
-
-\begin{figue}{0.7}{realisation/etherpad.pdf}
-	\caption{Schéma de l'infrastructure Pad}
+\begin{figue}{1}{realisation/archi.pdf}
+\caption{Schéma de l'intrastructure d'orchestration}
 \end{figue}
 
-Pour la mise en place de ce service sur \texttt{pad.kore.sh}, nous avons choisi la technologie \emph{Etherpad} qui est la plus avancée actuellement et qui propose de nombreuses fonctionnalités.
-Etherpad stock les pads des utilisateurs dans une base de données NoSQL MongoDB.
-Il nous a donc fallu créer deux services "MongoDB" et "Etherpad" et relier ce dernier au reverse proxy de l'infrastructure.
-Nous avons crée le Network "Pad" qui permet de lier les deux services entre eux sans interactions du reste de l'infrastructure et nous avons aussi connecté le service "Etherpad" au Network "Web" pour qu'il puisse être servis par le reverse proxy.
-Enfin, la base de données MongoDB dispose d'une volume permettant de stocker ses données de manière persistante et distribuées dans le cluster même si le service MongoDB vient à redémarrer.
+Notre infrastructure comprend plusieurs machines permettant de diffuser la charge sur l'ensemble d'un cluster de machines.
+On appelle L'ensemble de ces machines communiquantes, un Cluster et chaque membre de ce Cluster est appelé Noeud.
 
-\subsection{Messagerie}
+Le stockage est assuré par un disque présent le Noeud principal (Noeud Manager) disposant d'un grand espace de stockage.
+Ce disque est alors exporté via le protocol NFS vers les autres noeuds pour conserver un stockage synchronisé sur l'ensemble du cluser.
+Ainsi, les containers disposent d'un acces au stockage peu importe de leur emplacement dans le Cluster.
 
-\subsection{Gestion des fichiers}
+Un Cluster implique un système d'orchestration.
+Un tel système gère l'ensemble des containers éxécutés sur chaque Noeud et définis quel container doit être démarrés ou arrèté et sur quel machine.
+Dans notre cas, nous avons choisi Docker Swarm pour assurer cette Orchestration.
+Apres avoir constitué le cluster, il suffit de définir de de configurer les services qui seront déployés au sein de celui-ci.
 
-La gestion des fichiers permet le stockage et le partage de fichiers dans un espace personnel pour chaque utilisateur 
+Un service est une abstraction d'un container.
+Un service définis le squelette d'un container mais aussi le nombre de container qu'il faut déployer simultanément et d'autres paramètre permettant, notemment, de configurer le Reverse Proxy.
+Une fois les services définis, Docker Swarm se charge de lui même de démarrer les containers sur les différents Noeuds et de les connecter ensemble.
 
-\subsection{Traitement de texte}
+\subsection{Services proposés}
 
-\subsection{Réseau social}
+\paragraph{Pad} Un Pad est un fichier texte tres simple permettant l'utilisation d'une mise en forme basique tel que la mis en gras, la mise en italique, certains titres, etc.
+Un Pad peut aussi être partagé pour une édition en collaboration, ainsi plusiuers perosnnes de l'entreprise peuvent le lire et l'éditer en simultané.
+Dans le cadre d'une entrperise, cela permet de partager rapidement des informations sans envoyer d'email ou de fichier Word.
+Cette techologie est très utile dans le cadre d'une rédaction de document en équipe, cela permet aux divers memebres de l'équipe de débattre et de modifier le texte sans se soucier de la mise en forme mais de se concentrer sur le fond.
+Pour la mise en place de ce service sur \url{pad.kore.sh}, nous avons choisi la technologie \emph{Etherpad} qui est la plus avancée actuellement et qui propose de nombreuses fonctionnalités.
 
-\subsection{Wiki}
+\paragraph{Gestion des fichiers} La gestion des fichiers permet le stockage et le partage de fichiers dans un espace personnel pour chaque utilisateur.
+Chaque utilisateur dispose de ses propres fichiers qu'il peut partager, diffuser et modifier en ligne.
+Pour mettre a disposition des utilisateurs ce service sur \url{files.kore.sh}, nous avons déployé un serveur \emph{NextCloud} permettant de partager et de gèrer des fichiers au travers du protocol WebDAV.
+En plus de ce serveur de fichiers, nous avons mis en place une solution \emph{OnlyOffice} permettant d'éditer en ligne et à plusieurs les documents de la suite Office Microsoft.
+cela comprend un tableur, un traitement de texte mais aussi un créateur de présentations.
+On peut aussi noter que les fichiers NextCloud sont accessibles depuis un téléphone au travers de l'application NextCloud permettant ainsi un acces aux données même en mobilité.
 
-\subsection{Audioconférence et VoIP}
+\paragraph{Messagerie} La messagerie est un élément important d'une entrperise, elle permet la communication avec l'ensemble des collaborateurs mais aussi avec les clients et toute autre personne.
+Nous avons mis en place deux éléments pour la gestion de cette messagerie.
+Dans un premier temps, le serveur des messagerie \emph{Postfix} et \emph{Dovecot} permettent d'envoyer et de recevoir les messages au travers de protocols SMTP et IMAP.
+Dans un deuxième temps, nous avons déployé une application de messagerie Web \emph{SOGo} accessible à \url{mail.kore.sh/SOGo} gèrant à la fois les messages par la connexion au services précédemment mis en place mais aussi un Agenda et un carnet d'adresses.
 
-\subsection{Forum}
+\paragraph{Wiki} Un Wiki est un logiciel permettant à chacun de créer et modifier une base de connaissance.
+Ce wiki est ouvert à tout, même aux modifications ananymes et permet de constituer une connaissance de groupe accessible en tout temps.
+Un système wiki est tres utile pour gèrer les problèmes recurrents d'une entreprise tant au niveau des système d'information que d'informations générales sur le fonctionnement de l'entreprise.
+Nous avons utilisé le système \emph{Gitit} sur \url{wiki.kore.sh} pour ce service.
+Gitit dispose d'une intrface web de modification et gère son historique de modification dans un repository git, cela rend son utilisation tres simple et permet aussi une modification hors ligne en clonant ce repository sur sa propre machine.
 
-Un forum est une application Web permettant de créer des sujets pour discuter entre les membres de l'entreprise.
-Elle est très utile notemment pour partager diverses astuces et encourager le partage d'informations en tout genre en entreprise.
-
-Nous avons choisi d'utiliser Discourse, une application Web moderne et ergonomique développé en Ruby et utilise PostgreSQL, une base de données relationnelle, mais aussi Redis, une base de données de cache NoSQL.
-
-\subsection{Chat}
-
-Le chat d'entreprise permet de communiquer éfficacement entre membres d'une équipe, d'un service et même d'une entreprise.
+\paragraph{Chat} Le chat d'entreprise permet de communiquer éfficacement entre membres d'une équipe, d'un service et même d'une entreprise.
 L'application Rocket.chat permet de disposer de canaux de communication entre tout les membres d'une équipe permettant une communication fluide et bien plus rapide que l'adresse Email.
+Ces systèmes de communication se sont généralisés dans les entreprise et permettent bien plus de fonctionnalités qu'un simple échange d'email.
+Pour mettre en place cette application sur \url{chat.kore.sh}, nous avons utilisé le système Rocket.chat.
+Ce système est plus avancé des systèmes de chat d'entreprise open source et est aussi disponible sur mobile.
 
-Rocket.chat est une application Web disposant d'une interface Web et d'un stockage des données dans une base de données MongoDB.
-Nous avons donc mis en place une base de données MongoDB et un volume permettant de stocker les données sur le long terme.
-Cette base de données est alors liée au serveur Rocket.chat qui l'utilise pour l'ensemble de son stockage de données.
+\paragraph{Base de données} La base de données de l'entreprise permet un stockage de données arbitraires et leur recherche pour une utilisation ulterieur.
+Pour cette utilisation, nous avons choisi le logiciel \emph{CouchDB} permettant un stockage de données sans schéma défini.
+CouchDB dispose d'une API REST permettant de communiquer facilement avec un client arbitraire comme un script d'entreprise, des capteurs IoT, etc.
+CouchDB dispose aussi d'une interface utilisateur sur \url{db.kore.sh/_utils} permettant une consultation des données par des utilisateur humains.
 
-Le serveur est alors lié au réseau publique au travers du reverse Proxy Traefik sur le nom de domaine \texttt{chat.kore.sh}
+\paragraph{Annuaire} Un service d'annuaire permet de centraliser la gestion des utilisateurs de l'entreprise.
+Nous avons utilisé cette téchnologie pour garantir qu'un collaborateur créé dans la base de données de l'annuaire dispose d'un compte sur le Gestionnaire de fichiers, le Chat, la Messagerie, le réseau social et le forum.
+La base de données gère les nom d'utilisateurs et mots de masse de manière centralisée permettant un modification bien plus aisée des comptes utilisateurs mais aussi une sécurité plus importante car les mots de passes des utilisateur ne sont pas présents en plusieurs endroits, potentiellement vulnérables.
+Pour la mise en place de cet annuaire, nous avons utilisé le logiciel OpenLDAP qui est une référence dans le domaine.
 
-\subsection{Base de données}
+\paragraph{Audioconférence et VoIP} Les systèmes de VoIP permettant aux collaborateurs de communiquer par voie vocal ou video entre eux.
+Cela passe par les protocol SIP et RTC que nous avons déployés avec l'application open source \emph{Asterisk}.
+Chaque collaborateur peut alors utiliser une application de VoIP (appelée SoftPhone) sur smartphone ou sur PC.
+Il est aussi possible de configurer des téléphones physiques pour utiliser le système de VoIP mis en place.
 
-La base de données de l'entreprise permet un stockage de données arbitraires et leur recherche pour une utilisation ulterieur.
-Pour cette utilisation, nous avons choisi le logiciel ElasticSearch permettant un stockage de données sans schéma défini.
-Cela permet de stocker des données spécifiques mais aussi de les retrouver.
-En effet, ElasticSearch dispose d'un moteur de recherche très performant permettant de retrouver et classer les documetns trouvés selon un score.
-Enfin, ElasticSearch dispose d'un système de replication permettant une utilisation en cluster comme dans notre cas.
+\paragraph{Réseau social} Un réseau social d'entreprise permet une communication interne de moindre importance mais permattant aux collaborateurs de partager sur des sujets divers de manière convival et informel.
+Nous avons inclus le réseau social d'entreprise dans nos services sur \url{social.kore.sh}.
 
-\subsection{Exposition des services}
+\paragraph{Forum} Un forum est un site web permettant aux collaborateur de discuter autours de sujets définis.
+Ce service estr très utile en entrprise pour encourager l'entraide entre collaborateurs.
+Cela permet aussi de faciliter les dialogues avec le support technique sur les difficultés que peuvent rencontrer les utilisateurs lors de leur utilisation du système d'information.
+Nous avons déployé un forum sur \url{forum.kore.sh}.
+
+\paragraph{Exposition des services} La majorité de ces services sont accessibles sur le Web.
+Le port définis pour la communication HTTP étant 80 et 443 pour sa version sécuriséé, il est impossible d'exposer plusieurs applications sur la même addresses IP.
+Nous avosn donc mis en place un Revers eproxy se poisitionnant en entrée de toute les communication vers les services web et distribuant les requètes aux services concernés sur la abse du nom de domaine utilisé pour y accèder.
+Nous avons utilisé le reverse proxy \emph{Traefik} permettant une configuration dynamique par l'observation du cluster.
+En effet, apres avoir déployé un service web, il suffit d'ajouter 4 labels à ce service pour configurer son acces depuis l'éxterieur au travers de traefik.
+Cela rend le déploiement de services très simple et dynamique.
+Enfin, Trafik dispose d'un système de load balancing permettant de diffuser la charge des requètes sur plusieurs containers d'un même service.
+
+\subsection{Structure des services}
+
+Au sein de notre cluster, nous avons déployé ces services et leur dépendances avec une forte séparation garantissant une disponibilité même en cas de panne d'un service.
+L'infrastructure est aussi divisé en de nombreux réseaux permettant de séparer les usages de de chaque service.
