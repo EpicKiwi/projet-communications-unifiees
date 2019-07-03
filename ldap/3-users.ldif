@@ -5,7 +5,7 @@ objectClass: simpleSecurityObject
 objectClass: person
 objectClass: organizationalPerson
 objectClass: extensibleObject
-objectClass: mailAccount
+objectClass: PostfixBookMailAccount
 uid: baptiste
 cn: baptiste
 sn: Saclier
@@ -14,6 +14,11 @@ givenName: Baptiste
 mailenable: TRUE
 uniqueIdentifier: baptiste
 userPassword: {SSHA}DihCMEo9fdoF1u8oOr8DL4pApPMf7URi
+mailUidNumber: 5000
+mailGidNumber: 5000
+mailHomeDirectory: /var/mail/baptiste@kore.sh
+mailStorageDirectory: maildir:/var/mail/baptiste@kore.sh/Maildir
+
 
 dn: cn=clement,ou=users,dc=kore,dc=sh
 changetype: add
@@ -22,7 +27,7 @@ objectClass: simpleSecurityObject
 objectClass: person
 objectClass: organizationalPerson
 objectClass: extensibleObject
-objectClass: mailAccount
+objectClass: PostfixBookMailAccount
 uid: clement
 cn: clement
 sn: Boutin
@@ -31,6 +36,10 @@ givenName: Clément
 mailenable: TRUE
 uniqueIdentifier: clement
 userPassword: {SSHA}sMMITf+O6Eudo5CLbq0aIhgoDoHsvjj1
+mailUidNumber: 5000
+mailGidNumber: 5000
+mailHomeDirectory: /var/mail/clement@kore.sh
+mailStorageDirectory: maildir:/var/mail/clement@kore.sh/Maildir
 
 dn: cn=antoine,ou=users,dc=kore,dc=sh
 changetype: add
@@ -39,7 +48,7 @@ objectClass: simpleSecurityObject
 objectClass: person
 objectClass: organizationalPerson
 objectClass: extensibleObject
-objectClass: mailAccount
+objectClass: PostfixBookMailAccount
 uid: antoine
 cn: antoine
 sn: Caillet
@@ -48,6 +57,10 @@ givenName: Antoine
 mailenable: TRUE
 uniqueIdentifier: antoine
 userPassword: {SSHA}c5y3MP4jWsZCqg91ldFHJq+Rjp2SMIRm
+mailUidNumber: 5000
+mailGidNumber: 5000
+mailHomeDirectory: /var/mail/antoine@kore.sh
+mailStorageDirectory: maildir:/var/mail/antoine@kore.sh/Maildir
 
 dn: cn=arthur,ou=users,dc=kore,dc=sh
 changetype: add
@@ -56,7 +69,7 @@ objectClass: simpleSecurityObject
 objectClass: person
 objectClass: organizationalPerson
 objectClass: extensibleObject
-objectClass: mailAccount
+objectClass: PostfixBookMailAccount
 uid: arthur
 cn: arthur
 sn: Bruneel
@@ -65,6 +78,10 @@ givenName: Arthur
 mailenable: TRUE
 uniqueIdentifier: arthur
 userPassword: {SSHA}DxeAuHEFUPT1OMfiA7wbPwXfVfWwSqYR
+mailUidNumber: 5000
+mailGidNumber: 5000
+mailHomeDirectory: /var/mail/arthur@kore.sh
+mailStorageDirectory: maildir:/var/mail/arthur@kore.sh/Maildir
 
 dn: cn=victor,ou=users,dc=kore,dc=sh
 changetype: add
@@ -73,7 +90,7 @@ objectClass: simpleSecurityObject
 objectClass: person
 objectClass: organizationalPerson
 objectClass: extensibleObject
-objectClass: mailAccount
+objectClass: PostfixBookMailAccount
 uid: victor
 cn: victor
 sn: Zimmermann
@@ -82,3 +99,7 @@ givenName: Victor
 mailenable: TRUE
 uniqueIdentifier: victor
 userPassword: {SSHA}DgreM9Kilo8pHNIn3fqCJJCZZ0CqoDQu
+mailUidNumber: 5000
+mailGidNumber: 5000
+mailHomeDirectory: /var/mail/victor@kore.sh
+mailStorageDirectory: maildir:/var/mail/victor@kore.sh/Maildir
