@@ -2,7 +2,7 @@ version: "3"
 services:
   mail:
     image: tvial/docker-mailserver:latest
-    hostname: mail
+    hostname: mail.kore.sh
     domainname: kore.sh
     container_name: mail
     networks:
@@ -24,7 +24,7 @@ services:
     - ENABLE_POP3=
     - ENABLE_FAIL2BAN=0
     - ENABLE_MANAGESIEVE=0
-    - OVERRIDE_HOSTNAME=kore.sh.
+    - OVERRIDE_HOSTNAME=mail.kore.sh
     - POSTMASTER_ADDRESS=postmaster@kore.sh
     - POSTSCREEN_ACTION=enforce
     - REPORT_RECIPIENT=0
@@ -106,6 +106,8 @@ services:
         - traefik.port=80
   sogodb:
     image: postgres
+    volumes:
+        - "/storage/kore/sogodb-data:/var/lib/postgresql/data"
     environment:
       - POSTGRES_PASSWORD=sogo
       - POSTGRES_USER=sogo
