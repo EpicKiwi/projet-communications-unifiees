@@ -24,7 +24,7 @@ services:
     - ENABLE_POP3=
     - ENABLE_FAIL2BAN=0
     - ENABLE_MANAGESIEVE=0
-    - OVERRIDE_HOSTNAME=
+    - OVERRIDE_HOSTNAME=mail.kore.sh
     - POSTMASTER_ADDRESS=postmaster@kore.sh
     - POSTSCREEN_ACTION=enforce
     - REPORT_RECIPIENT=0
